@@ -1,0 +1,17 @@
+services:
+  db:
+    container_name: gas_db
+    restart: always
+    image: mysql:5.7
+    environment:
+      - DEBUG=false
+      - MYSQL_USER=${POSTGRES_USER}
+      - MYSQL_PASSWORD=${POSTGRES_PASSWORD}
+      - MYSQL_DATABASE=${POSTGRES_DBNAME}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    expose:
+      - ${POSTGRES_PORT}
+    volumes:
+      - ./postgres-data:/data/postgres
+    command: -p ${POSTGRES_PORT}
